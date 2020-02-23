@@ -18,6 +18,8 @@ typedef void(^eventCallBack)(void);
 
 + (YFTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(eventCallBack)block;
 
++ (YFTimer *)scheduledTimerInBackgroundThreadWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(eventCallBack)block;
+
 + (YFTimer *)createTimerWithTimeInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeats:(BOOL)repeats block:(eventCallBack)block scheduledQueue:(dispatch_queue_t)queue;
 
 - (instancetype)initWithInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeats:(BOOL)repeats block:(eventCallBack)block onThread:(dispatch_queue_t)thread;

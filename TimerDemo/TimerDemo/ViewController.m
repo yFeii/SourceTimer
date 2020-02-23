@@ -21,12 +21,36 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.timer = [[YFTimer alloc] initWithInterval:5 delay:0 repeats:true block:^{
+    self.timer = [YFTimer scheduledTimerWithTimeInterval:1 repeats:true block:^{
         NSLog(@"333");
-    } onThread:dispatch_get_main_queue()];
+    }];
     [self.timer resume];
     [self.timer addObserver:self forKeyPath:@"isFiring" options:NSKeyValueObservingOptionNew context:NULL];
     [self.timer addObserver:self forKeyPath:@"repeatCount" options:NSKeyValueObservingOptionNew context:NULL];
+//    [self raceTest];
+    
+}
+- (void)raceTest {
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        while (true) {
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                
+                [self.timer resume];
+            });
+        }
+    });
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        while (true) {
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                
+                [self.timer suspend];
+            });
+        }
+    });
+
 }
 
 int clickCount = 0;
