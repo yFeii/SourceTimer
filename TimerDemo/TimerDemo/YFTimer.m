@@ -69,6 +69,7 @@ static dispatch_queue_t yf_timer_scheduled_queue() {
     self.repeatCount++;
     if (!_repeat || !self.timerBlock) {
         [self invalidate];
+        return;
     }
     self.timerBlock();
 }
